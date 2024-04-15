@@ -3,6 +3,7 @@ import logging
 import traceback
 
 import simplejson as json
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -159,4 +160,6 @@ def sign_up(request):
 # 退出登录
 def sign_out(request):
     logout(request)
-    return HttpResponseRedirect(reverse('sql:login'))
+    # return HttpResponseRedirect(reverse('sql:login'))
+    return HttpResponseRedirect(settings.BK_URL)
+

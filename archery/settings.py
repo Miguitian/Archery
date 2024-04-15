@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'sql',
     'sql_api',
     'common',
+    'blueapps',
 )
 
 MIDDLEWARE = (
@@ -43,7 +44,8 @@ MIDDLEWARE = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.gzip.GZipMiddleware',
-    'common.middleware.check_login_middleware.CheckLoginMiddleware',
+    'blueapps.middlewares.LoginRequiredMiddleware',
+    # 'common.middleware.check_login_middleware.CheckLoginMiddleware',
     'common.middleware.exception_logging_middleware.ExceptionLoggingMiddleware',
 )
 
@@ -116,6 +118,20 @@ AUTH_PASSWORD_VALIDATORS = [
 SESSION_COOKIE_AGE = 60 * 300  # 300分钟
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
+LOGIN_CACHE_EXPIRED = 60
+
+# 蓝鲸统一登录配置，如果用不到，可注释
+#################
+BK_URL = os.getenv("BK_PAAS_HOST", "http://paas.bkbobfintech.com")
+
+# Authentication & Authorization
+
+SESSION_COOKIE_NAME = "_".join(['sql', "sessionid"])
+AUTHENTICATION_BACKENDS = (
+    "blueapps.backends.TokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+)
+#################
 
 # 该项目本身的mysql数据库地址
 DATABASES = {
