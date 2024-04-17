@@ -127,6 +127,8 @@ BK_URL = os.getenv("BK_PAAS_HOST", "http://paas.bkbobfintech.com")
 # Authentication & Authorization
 
 SESSION_COOKIE_NAME = "_".join(['sql', "sessionid"])
+# CSRF Config
+CSRF_COOKIE_NAME = 'sql' + "_csrftoken"
 AUTHENTICATION_BACKENDS = (
     "blueapps.backends.TokenBackend",
     "django.contrib.auth.backends.ModelBackend",
